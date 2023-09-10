@@ -7,8 +7,8 @@ module Weight_Memory #(parameter numWeight = 3, neuronNo=5,layerNo=1,addressWidt
     input clk,
     input wen,
     input ren,
-    input [addressWidth-1:0] wadd,
-    input [addressWidth-1:0] radd,
+    input [addressWidth-1:0] wadd,  // Write address
+    input [addressWidth-1:0] radd,  // Read address
     input [dataWidth-1:0] win,
     output reg [dataWidth-1:0] wout);
     
@@ -19,12 +19,13 @@ module Weight_Memory #(parameter numWeight = 3, neuronNo=5,layerNo=1,addressWidt
 
     // This part decides if this acts as a RAM or a ROM
     `ifdef pretrained   //pretrained stored in include file
-        // if pretrained acts a ROM else RAM hello
+        // if pretrained acts a ROM else RAM
         initial
 		begin
 	        $readmemb(weightFile, mem);
 	    end
 	`else
+        // write vlaues from an external circuitry
 		always @(posedge clk)
 		begin
 			if (wen)
