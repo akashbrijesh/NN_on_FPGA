@@ -36,6 +36,7 @@ module Weight_Memory #(parameter numWeight = 3, neuronNo=5,layerNo=1,addressWidt
     `endif
 
     // If we make this combinational Vivado will not use block RAM
+    // If we make combinational give wout = 0 as else
     always @(posedge clk)
     begin
         if (ren)
