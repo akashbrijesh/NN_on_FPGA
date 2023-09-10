@@ -19,7 +19,7 @@ module Weight_Memory #(parameter numWeight = 3, neuronNo=5,layerNo=1,addressWidt
 
     // This part decides if this acts as a RAM or a ROM
     `ifdef pretrained   //pretrained stored in include file
-        // if pretrained acts a ROM else RAM
+        // if pretrained acts a ROM else RAM hello
         initial
 		begin
 	        $readmemb(weightFile, mem);
