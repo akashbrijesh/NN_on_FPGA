@@ -5,8 +5,8 @@ timescale 1ns / 1ps
 module Weight_Memory #(parameter numWeight = 3, neuronNo=5,layerNo=1,addressWidth=10,dataWidth=16,weightFile="w_1_15.mif") 
     ( 
     input clk,
-    input wen,
-    input ren,
+    input wen,  // write enable
+    input ren,  // read enable
     input [addressWidth-1:0] wadd,  // Write address
     input [addressWidth-1:0] radd,  // Read address
     input [dataWidth-1:0] win,
@@ -34,7 +34,8 @@ module Weight_Memory #(parameter numWeight = 3, neuronNo=5,layerNo=1,addressWidt
 			end
 		end 
     `endif
-    
+
+    // If we make this combinational Vivado will not use block RAM
     always @(posedge clk)
     begin
         if (ren)
