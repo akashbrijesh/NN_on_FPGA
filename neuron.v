@@ -39,6 +39,8 @@ module neuron #(parameter layerNo=0,neuronNo=0,numWeight=784,dataWidth=16,sigmoi
     reg muxValid_d;
     reg muxValid_f;
     reg addr=0;
+
+    // Each neuron is uniquely identified by the layer number and the position of the neuron in that layer(neuronN0)
    //Loading weight values into the memory
     always @(posedge clk)
     begin
