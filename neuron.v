@@ -119,16 +119,22 @@ module neuron #(parameter layerNo=0,neuronNo=0,numWeight=784,dataWidth=16,sigmoi
         end
         else if(mux_valid)
         begin
+            // If MSB of mul is 0 & MSB of sum is 0 and MSB of comboAdd is 1
+            // If mul and sum are positive and thier sum comboAdd is negative (overflow condition)
             if(!mul[2*dataWidth-1] & !sum[2*dataWidth-1] & comboAdd[2*dataWidth-1])
             begin
+                // Make the sum to be highest positive value ie MSB to 0 and rest 1
                 sum[2*dataWidth-1] <= 1'b0;
                 sum[2*dataWidth-2:0] <= {2*dataWidth-1{1'b1}};
             end
+            // If mul and sum are negative and thier sum comboAdd is positive (underflow condition)
             else if(mul[2*dataWidth-1] & sum[2*dataWidth-1] & !comboAdd[2*dataWidth-1])
             begin
+                // Make the sum to be smallest negative value ie MSB to 1 and rest 0
                 sum[2*dataWidth-1] <= 1'b1;
                 sum[2*dataWidth-2:0] <= {2*dataWidth-1{1'b0}};
             end
+            // If no overflow or underflow
             else
                 sum <= comboAdd; 
         end
